@@ -38,13 +38,13 @@ const Header = () => {
     if (location.pathname === '/') {
       return 'text-white'; // Home: blanco
     }
-    return 'text-[#314528]'; // Gallery, About: verde
+    return 'text-[#314528]'; // Gallery, About, Contact: verde
   };
 
   // Determinar el color del texto activo según el contexto
   const getActiveColorClass = () => {
-    // En Gallery o About sin scroll: fondo verde con texto blanco
-    if ((location.pathname === '/gallery' || location.pathname === '/about') && !isScrolled) {
+    // En Gallery, About o Contact sin scroll: fondo verde con texto blanco
+    if ((location.pathname === '/gallery' || location.pathname === '/about' || location.pathname === '/contact') && !isScrolled) {
       return 'text-white bg-[#314528] px-3 py-1 rounded-md';
     }
     // En Home sin scroll: texto blanco (sin fondo especial)
@@ -116,18 +116,16 @@ const Header = () => {
             >
               About
             </Link>
-            <a 
-              href="#contact" 
+            <Link 
+              to="/contact" 
               className={`
-                text-lg font-medium transition duration-300
-                ${isScrolled 
-                  ? 'hover:text-white/80' 
-                  : 'hover:text-[#314528]/80'
-                }
+                text-lg font-medium transition-all duration-300
+                ${isActive('/contact') ? activeColorClass : ''}
+                ${!isActive('/contact') && (isScrolled ? 'hover:text-white/80' : 'hover:text-[#314528]/80')}
               `}
             >
               Contact
-            </a>
+            </Link>
           </nav>
 
           {/* Botón de menú móvil */}
@@ -173,13 +171,13 @@ const Header = () => {
               >
                 About
               </Link>
-              <a 
-                href="#contact" 
-                className="text-lg hover:text-white/80 transition duration-300 py-2"
+              <Link 
+                to="/contact" 
+                className={`text-lg transition duration-300 py-2 ${isActive('/contact') && 'text-white/80 font-semibold'}`}
                 onClick={toggleMenu}
               >
                 Contact
-              </a>
+              </Link>
             </nav>
           </div>
         )}
