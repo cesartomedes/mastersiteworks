@@ -2,46 +2,68 @@ import { useState, useEffect, useRef } from "react";
 import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 
 const VideoSection = () => {
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false); // Cambiado a false inicialmente
+  const [isMuted, setIsMuted] = useState(true); // Silenciado por defecto para autoplay
   const [isLoaded, setIsLoaded] = useState(false);
+  const [hasAutoPlayed, setHasAutoPlayed] = useState(false); // Para que solo se reproduzca una vez
   const videoRef = useRef(null);
-  const [isInView, setIsInView] = useState(false);
-
-  // Detect when video is in view for autoplay
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true);
-          if (videoRef.current && isPlaying && isLoaded) {
-            videoRef.current
-              .play()
-              .catch((e) => console.log("Autoplay prevented:", e));
-          }
-        } else {
-          setIsInView(false);
-          if (videoRef.current) {
-            videoRef.current.pause();
-          }
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    if (videoRef.current) {
-      observer.observe(videoRef.current);
-    }
-
-    return () => {
-      if (videoRef.current) {
-        observer.unobserve(videoRef.current);
-      }
-    };
-  }, [isPlaying, isLoaded]);
+  const sectionRef = useRef(null);
 
   // Build correct path for video
   const videoSrc = `${import.meta.env.BASE_URL}videos/video1.mp4`;
+
+  // Detect when video section is in view for autoplay
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Cuando la sección del video entra en vista
+        if (entry.isIntersecting && !hasAutoPlayed && videoRef.current && isLoaded) {
+          setHasAutoPlayed(true);
+          videoRef.current.play()
+            .then(() => {
+              setIsPlaying(true);
+              console.log("Video started playing automatically");
+            })
+            .catch((e) => console.log("Autoplay prevented:", e));
+        }
+      },
+      { threshold: 0.3 } // 30% visible para activar
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, [isLoaded, hasAutoPlayed]);
+
+  // Pausar video cuando se sale de vista (opcional)
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting && videoRef.current && isPlaying) {
+          // Opcional: pausar cuando sales de la sección
+          // videoRef.current.pause();
+          // setIsPlaying(false);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, [isPlaying]);
 
   const togglePlay = () => {
     if (videoRef.current) {
@@ -63,7 +85,8 @@ const VideoSection = () => {
 
   return (
     <section
-      className="relative w-full overflow-hidden"
+      ref={sectionRef}
+      className="relative w-full overflow-hidden scroll-mt-20"
       style={{ backgroundColor: "#0a1a0f" }}
     >
       {/* Cinematic gradient background */}
@@ -81,7 +104,6 @@ const VideoSection = () => {
         <video
           ref={videoRef}
           className="w-full h-full max-h-[90vh] object-contain relative z-10 rounded-lg shadow-2xl"
-          autoPlay
           loop
           muted={isMuted}
           playsInline
@@ -118,6 +140,9 @@ const VideoSection = () => {
           </button>
         </div>
       </div>
+
+      {/* Text overlay on video */}
+
 
       {/* Decorative light streak at bottom */}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#314528] to-transparent"></div>
