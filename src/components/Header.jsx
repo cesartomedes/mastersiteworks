@@ -38,13 +38,13 @@ const Header = () => {
     if (location.pathname === '/') {
       return 'text-white'; // Home: blanco
     }
-    return 'text-[#314528]'; // Gallery, About, Contact: verde
+    return 'text-[#314528]'; // Gallery, About: verde
   };
 
   // Determinar el color del texto activo según el contexto
   const getActiveColorClass = () => {
-    // En Gallery sin scroll: fondo verde con texto blanco
-    if (location.pathname === '/gallery' && !isScrolled) {
+    // En Gallery o About sin scroll: fondo verde con texto blanco
+    if ((location.pathname === '/gallery' || location.pathname === '/about') && !isScrolled) {
       return 'text-white bg-[#314528] px-3 py-1 rounded-md';
     }
     // En Home sin scroll: texto blanco (sin fondo especial)
@@ -106,18 +106,16 @@ const Header = () => {
             >
               Gallery
             </Link>
-            <a 
-              href="#about" 
+            <Link 
+              to="/about" 
               className={`
-                text-lg font-medium transition duration-300
-                ${isScrolled 
-                  ? 'hover:text-white/80' 
-                  : 'hover:text-[#314528]/80'
-                }
+                text-lg font-medium transition-all duration-300
+                ${isActive('/about') ? activeColorClass : ''}
+                ${!isActive('/about') && (isScrolled ? 'hover:text-white/80' : 'hover:text-[#314528]/80')}
               `}
             >
               About
-            </a>
+            </Link>
             <a 
               href="#contact" 
               className={`
@@ -168,13 +166,13 @@ const Header = () => {
               >
                 Gallery
               </Link>
-              <a 
-                href="#about" 
-                className="text-lg hover:text-white/80 transition duration-300 py-2"
+              <Link 
+                to="/about" 
+                className={`text-lg transition duration-300 py-2 ${isActive('/about') && 'text-white/80 font-semibold'}`}
                 onClick={toggleMenu}
               >
                 About
-              </a>
+              </Link>
               <a 
                 href="#contact" 
                 className="text-lg hover:text-white/80 transition duration-300 py-2"

@@ -141,10 +141,7 @@ const VideoSection = () => {
         </div>
       </div>
 
-      {/* Text overlay on video */}
-
-
-      {/* Decorative light streak at bottom */}
+   
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#314528] to-transparent"></div>
     </section>
   );
