@@ -32,7 +32,7 @@ const ContactSection = () => {
   };
 
   // Coordenadas de la dirección (91 Eddins Rd, Morven, NC 28119)
-  const mapUrl = "https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=91+Eddins+Rd+Morven+NC+28119";
+ 
 
   return (
     <section id="contact" className="py-20 bg-white">
