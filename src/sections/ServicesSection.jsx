@@ -44,7 +44,7 @@ const ServicesSection = () => {
       icon: <FaBorderAll className="text-5xl text-[#314528]" />,
       title: "Curb and Gutter",
       description:
-        "As seen above our Power Curber and crew pouring curb with precision and quality.",
+        "Provide full-service curb and gutter work, including site prep, grading, form setting, concrete pouring, finishing, and curing. We perform both new installations and replacement of damaged or deteriorated sections, ensuring durability and proper drainage.",
     },
   ];
 

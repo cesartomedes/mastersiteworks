@@ -17,61 +17,42 @@ const GallerySection = () => {
     }
   }, [selectedImage]);
 
-  // Galería de imágenes basada en los servicios reales
+  // Construir rutas de las imágenes locales
+  const demoImage = `${import.meta.env.BASE_URL}images/demo.png`;
+  const utilitiesImage = `${import.meta.env.BASE_URL}images/utilities.jpg`;
+  const fenceImage = `${import.meta.env.BASE_URL}images/fence.jpg`;
+
+  // Galería de imágenes - AHORA CON 3 IMÁGENES LOCALES
   const galleryImages = [
     {
       id: 1,
-      src: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      src: demoImage,
       title: "Demolition",
-      category: "demolition",
+      category: "demo",
       description: "Professional demolition services for residential and commercial structures, ensuring safety and efficiency in every project."
     },
     {
       id: 2,
-      src: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      src: utilitiesImage,
       title: "Underground Utilities",
       category: "utilities",
       description: "We specialize in underground Water Distribution, Sanitary Sewer and Storm Drainage Systems."
     },
     {
       id: 3,
-      src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      title: "Grading & Clearing",
-      category: "grading",
-      description: "We offer a full site package including clearing and grading, preparing your land for construction."
-    },
-    {
-      id: 4,
-      src: "https://images.unsplash.com/photo-1541976844346-d18e3c3b2c6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      title: "Erosion Control",
-      category: "erosion",
-      description: "From Sand Filters to Silt Worms our Environmental Protection services are first class."
-    },
-    {
-      id: 5,
-      src: "https://images.unsplash.com/photo-1573883431205-98b5f10aaedb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      title: "Retaining Walls",
-      category: "walls",
-      description: "Expert design and installation of retaining walls for structural support and aesthetic enhancement."
-    },
-    {
-      id: 6,
-      src: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      title: "Curb and Gutter",
-      category: "curb",
-      description: "As seen above our Power Curber and crew pouring curb with precision and quality."
+      src: fenceImage,
+      title: "Silt Fence",
+      category: "fence",
+      description: "Erosion control and sediment management with professional silt fence installation for environmental protection."
     }
   ];
 
-  // Filtros disponibles (basados en los servicios)
+  // Filtros disponibles - SOLO 3 CATEGORÍAS
   const filters = [
     { id: "all", label: "All Projects" },
-    { id: "demolition", label: "Demolition" },
-    { id: "utilities", label: "Utilities" },
-    { id: "grading", label: "Grading" },
-    { id: "erosion", label: "Erosion" },
-    { id: "walls", label: "Retaining Walls" },
-    { id: "curb", label: "Curb & Gutter" }
+    { id: "demo", label: "Demolition" },
+    { id: "utilities", label: "Underground Utilities" },
+    { id: "fence", label: "Silt Fence" }
   ];
 
   // Filtrar imágenes según categoría
@@ -98,13 +79,12 @@ const GallerySection = () => {
           <h2 className="text-4xl font-bold text-[#314528] mb-4">Our Gallery</h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
             Explore our portfolio of completed projects showcasing our expertise 
-            in demolition, underground utilities, grading, erosion control, 
-            retaining walls, and curb & gutter installation.
+            in demolition, underground utilities, and silt fence installation.
           </p>
           <div className="w-20 h-1 bg-[#314528] mx-auto mt-6"></div>
         </div>
 
-        {/* Filtros */}
+        {/* Filtros - SOLO 3 BOTONES */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
           {filters.map((item) => (
             <button
@@ -123,8 +103,8 @@ const GallerySection = () => {
           ))}
         </div>
 
-        {/* Grid de imágenes */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Grid de imágenes - 3 tarjetas */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {filteredImages.map((image) => (
             <div
               key={image.id}

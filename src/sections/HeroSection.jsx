@@ -36,12 +36,10 @@ const HeroSection = () => {
                   </h1>
                 </div>
 
-                {/* "General Contractors" - ya está en blanco por el text-white del contenedor */}
+            
                 <div className="mt-4">
-                  <p className="text-base uppercase tracking-widest text-white">
-                    General Contractors
-                  </p>
-                  {/* Línea decorativa - se mantiene verde */}
+                
+                  
                   <div className="w-16 h-0.5 bg-[#314528] mt-2"></div>
                 </div>
               </div>
