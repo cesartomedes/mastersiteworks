@@ -31,8 +31,13 @@ const ContactSection = () => {
     }, 1000);
   };
 
-  // Coordenadas de la dirección (91 Eddins Rd, Morven, NC 28119)
- 
+  // Nueva dirección
+  const address = "901 White Store Rd, Wadesboro, NC 28170";
+  const phoneNumber = "980-427-3530";
+  const email = "info@siteworks.com";
+
+  // Mapa de Google Maps con la nueva dirección
+  const mapSrc = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3264.1234567890123!2d-80.076543!3d34.968765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8856a1234567890b%3A0x1234567890abcdef!2s901%20White%20Store%20Rd%2C%20Wadesboro%2C%20NC%2028170!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus";
 
   return (
     <section id="contact" className="py-20 bg-white">
@@ -99,7 +104,7 @@ const ContactSection = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#314528] focus:ring-2 focus:ring-[#314528]/20 transition-all"
-                  placeholder="(704) 555-5555"
+                  placeholder={phoneNumber}
                 />
               </div>
               
@@ -143,59 +148,64 @@ const ContactSection = () => {
           {/* COLUMNA DERECHA - Información y Mapa */}
           <div className="space-y-8">
             
-            {/* Información de contacto */}
+            {/* Información de contacto - ACTUALIZADA */}
             <div className="bg-gray-50 rounded-2xl p-8 shadow-lg">
               <h3 className="text-2xl font-bold text-[#314528] mb-6">Get in Touch</h3>
               
               <div className="space-y-4">
+                {/* Dirección */}
                 <div className="flex items-start gap-4">
                   <FaMapMarker className="text-2xl text-[#314528] mt-1 flex-shrink-0" />
                   <div>
                     <p className="font-semibold text-gray-800">Master Site Works</p>
-                    <p className="text-gray-600">91 Eddins Rd</p>
-                    <p className="text-gray-600">Morven, NC 28119</p>
+                    <p className="text-gray-600">901 White Store Rd</p>
+                    <p className="text-gray-600">Wadesboro, NC 28170</p>
                     <p className="text-gray-600">United States</p>
                   </div>
                 </div>
                 
+                {/* Teléfono */}
                 <div className="flex items-center gap-4">
                   <FaPhone className="text-2xl text-[#314528] flex-shrink-0" />
                   <div>
-                    <p className="font-semibold text-gray-800">Office Phone</p>
-                    <a href="tel:7045555555" className="text-gray-600 hover:text-[#314528] transition">
-                      (704) 555-5555
+                    <p className="font-semibold text-gray-800">Phone</p>
+                    <a href={`tel:${phoneNumber.replace(/-/g, '')}`} className="text-gray-600 hover:text-[#314528] transition">
+                      {phoneNumber}
                     </a>
                   </div>
                 </div>
                 
+                {/* Email */}
                 <div className="flex items-center gap-4">
                   <FaEnvelope className="text-2xl text-[#314528] flex-shrink-0" />
                   <div>
                     <p className="font-semibold text-gray-800">Email</p>
-                    <a href="mailto:info@mastersiteworks.com" className="text-gray-600 hover:text-[#314528] transition">
-                      info@mastersiteworks.com
+                    <a href={`mailto:${email}`} className="text-gray-600 hover:text-[#314528] transition">
+                      {email}
                     </a>
                   </div>
                 </div>
                 
+                {/* Horarios - ACTUALIZADOS */}
                 <div className="flex items-start gap-4">
                   <FaClock className="text-2xl text-[#314528] mt-1 flex-shrink-0" />
                   <div>
                     <p className="font-semibold text-gray-800">Hours</p>
-                    <p className="text-gray-600">Monday - Friday: 8:00 AM - 4:30 PM</p>
-                    <p className="text-gray-600">Saturday - Sunday: Closed</p>
+                    <p className="text-gray-600">Monday - Friday: 8:00 AM - 6:00 PM</p>
+                    <p className="text-gray-600">Saturday: 8:00 AM - 12:00 PM</p>
+                    <p className="text-gray-600">Sunday: Closed</p>
                   </div>
                 </div>
               </div>
             </div>
             
-            {/* Google Maps */}
+            {/* Google Maps - ACTUALIZADO */}
             <div className="bg-gray-50 rounded-2xl p-4 shadow-lg">
               <h3 className="text-xl font-bold text-[#314528] mb-4">Find Us</h3>
               <div className="rounded-xl overflow-hidden shadow-md">
                 <iframe
                   title="Master Site Works Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3266.1234567890123!2d-80.123456!3d34.876543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88569f1234567890%3A0x1234567890abcdef!2s91%20Eddins%20Rd%2C%20Morven%2C%20NC%2028119!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+                  src={mapSrc}
                   width="100%"
                   height="250"
                   style={{ border: 0 }}
@@ -205,7 +215,7 @@ const ContactSection = () => {
                 ></iframe>
               </div>
               <p className="text-sm text-gray-500 mt-3 text-center">
-                91 Eddins Rd, Morven, NC 28119
+                901 White Store Rd, Wadesboro, NC 28170
               </p>
             </div>
           </div>
