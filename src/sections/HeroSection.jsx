@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const HeroSection = () => {
   // Construye la ruta correcta para la imagen, funcione en desarrollo y producción
   const backgroundImage = `url(${import.meta.env.BASE_URL}images/hero.JPG)`;
@@ -30,27 +32,27 @@ const HeroSection = () => {
                   <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight text-white">
                     Master
                   </h1>
-                  {/* Site Works - ahora en blanco (quitamos el texto verde) */}
+                  {/* Site Works - ahora en blanco */}
                   <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight text-white">
                     Siteworks
                   </h1>
                 </div>
 
-            
                 <div className="mt-4">
-                
-                  
                   <div className="w-16 h-0.5 bg-[#314528] mt-2"></div>
                 </div>
               </div>
             </div>
 
-            {/* BOTÓN ABOUT US - borde verde, texto blanco, hover verde con texto blanco */}
+            {/* BOTÓN ABOUT US - AHORA ES UN LINK A LA PÁGINA ABOUT */}
             <div className="ml-[calc(1.5rem+1.5rem)]">
-              <button className="group relative px-8 py-4 bg-transparent border-2 border-[#314528] text-white hover:bg-[#314528] hover:text-white transition-all duration-300 font-semibold uppercase tracking-wider overflow-hidden">
+              <Link
+                to="/about"
+                className="group relative inline-block px-8 py-4 bg-transparent border-2 border-[#314528] text-white hover:bg-[#314528] hover:text-white transition-all duration-300 font-semibold uppercase tracking-wider overflow-hidden rounded-lg"
+              >
                 <span className="relative z-10">About us</span>
                 <div className="absolute inset-0 bg-[#314528] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-              </button>
+              </Link>
             </div>
           </div>
 
