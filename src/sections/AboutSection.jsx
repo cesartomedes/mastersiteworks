@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaCheckCircle, FaTrophy, FaUsers, FaClock } from "react-icons/fa";
+import { FaCheckCircle, FaTrophy, FaUsers, FaClock, FaHardHat, FaBuilding, FaRoad, FaPaintRoller } from "react-icons/fa";
 
 const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -25,12 +25,20 @@ const AboutSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Estadísticas de la empresa
+  // Estadísticas de la empresa - ACTUALIZADAS
   const stats = [
-    { icon: <FaTrophy />, value: "25+", label: "Years Experience" },
-    { icon: <FaUsers />, value: "500+", label: "Projects Completed" },
+    { icon: <FaTrophy />, value: "15+", label: "Years Experience" },
+    { icon: <FaUsers />, value: "200+", label: "Projects Completed" },
     { icon: <FaCheckCircle />, value: "100%", label: "Client Satisfaction" },
     { icon: <FaClock />, value: "24/7", label: "Emergency Support" },
+  ];
+
+  // Servicios específicos - NUEVA LISTA
+  const services = [
+    { icon: <FaBuilding />, name: "Demolition" },
+    { icon: <FaHardHat />, name: "Site Development" },
+    { icon: <FaRoad />, name: "Asphalt Removal" },
+    { icon: <FaPaintRoller />, name: "Pavement Markings" },
   ];
 
   // Construir ruta de la imagen
@@ -39,14 +47,12 @@ const AboutSection = () => {
   // Función para ir a Home y hacer scroll a Contact
   const handleContactClick = (e) => {
     e.preventDefault();
-    // Si ya estamos en Home, solo hacemos scroll
     if (window.location.pathname === '/') {
       const contactSection = document.getElementById('contact');
       if (contactSection) {
         contactSection.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      // Si estamos en About, navegamos a Home y luego hacemos scroll
       window.location.href = '/#contact';
     }
   };
@@ -70,23 +76,37 @@ const AboutSection = () => {
 
             {/* Título */}
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Building Excellence in{" "}
+              Excellence in{" "}
               <span className="text-[#314528]">Site Development</span>
             </h2>
 
-            {/* Descripción principal */}
+            {/* Descripción principal - ACTUALIZADA */}
             <p className="text-gray-600 text-lg leading-relaxed mb-6">
-              Master Siteworks, is a licensed, bonded, and fully insured general contractor 
-              specializing in site development and road construction. With over 25 years of experience, 
-              we've built a reputation for excellence, reliability, and superior craftsmanship.
+              Master Siteworks is a licensed, bonded, and fully insured general contractor 
+              specializing in site development. With over 15 years of experience, we've built 
+              a reputation for excellence, reliability, and superior craftsmanship.
             </p>
 
-            <p className="text-gray-600 text-lg leading-relaxed mb-8">
-              Our expertise spans grading, storm drainage, erosion control, curb & gutter, 
-              stone bases, asphalt paving, concrete construction, and pavement markings. 
-              We're committed to delivering projects on time, within budget, and to the highest 
-              quality standards.
+            <p className="text-gray-600 text-lg leading-relaxed mb-6">
+              Our expertise spans demolition, site development, asphalt removal, and pavement markings. 
+              We're committed to delivering projects on time, within budget, and to the highest quality 
+              standards.
             </p>
+
+            {/* Lista de servicios destacados - NUEVA */}
+            <div className="grid grid-cols-2 gap-4 mb-8">
+              {services.map((service, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-[#314528]/5 transition-all duration-300 group"
+                >
+                  <div className="text-2xl text-[#314528] group-hover:scale-110 transition-transform duration-300">
+                    {service.icon}
+                  </div>
+                  <span className="text-gray-700 font-medium">{service.name}</span>
+                </div>
+              ))}
+            </div>
 
             {/* Estadísticas */}
             <div className="grid grid-cols-2 gap-6 mb-8">
@@ -106,7 +126,7 @@ const AboutSection = () => {
               ))}
             </div>
 
-            {/* Botón de contacto - Ahora funciona correctamente */}
+            {/* Botón de contacto */}
             <button
               onClick={handleContactClick}
               className="inline-flex items-center gap-2 bg-[#314528] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#314528]/80 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl cursor-pointer"
