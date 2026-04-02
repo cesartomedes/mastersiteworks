@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const HeroSection = () => {
   // Construye la ruta correcta para la imagen, funcione en desarrollo y producción
   const backgroundImage = `url(${import.meta.env.BASE_URL}images/hero.JPG)`;
-  const logoSrc = `${import.meta.env.BASE_URL}logow.png`;
+  const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
 
   return (
     <section
@@ -18,14 +18,16 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
       <div className="relative z-10 container mx-auto px-4">
-        {/* LOGO - MÁS A LA IZQUIERDA */}
-        <div className="flex justify-start mb-8 -mt-24 -ml-4 md:-ml-8 lg:-ml-20">
-          <img
-            src={logoSrc}
-            alt="Master Siteworks Logo"
-            className="h-24 md:h-32 lg:h-60 w-auto object-contain"
-          />
-        </div>
+        {/* LOGO - MÁS ARRIBA EN MOBILE Y TABLET */}
+        <Link to="/">
+          <div className="flex justify-start mb-8 md:mb-16 lg:mb-32 -mt-32 -ml-4 md:-ml-8 lg:-ml-20">
+            <img
+              src={logoSrc}
+              alt="Master Siteworks Logo"
+              className="h-24 md:h-32 lg:h-60 w-auto object-cover"
+            />
+          </div>
+        </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* COLUMNA IZQUIERDA - ALINEADA A LA IZQUIERDA */}
@@ -38,10 +40,10 @@ const HeroSection = () => {
               {/* Bloque de texto */}
               <div className="flex flex-col">
                 <div>
-                  <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight text-white">
+                  <h1 className="text-6xl md:text-7xl lg:text-8xl font-black leading-tight text-white">
                     Master
                   </h1>
-                  <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight text-white">
+                  <h1 className="text-6xl md:text-7xl lg:text-8xl font-black leading-tight text-white">
                     Siteworks
                   </h1>
                 </div>
