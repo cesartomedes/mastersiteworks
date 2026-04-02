@@ -85,9 +85,9 @@ const Header = () => {
             to="/"
             className={`${textColor} hover:opacity-80 transition duration-300`}
           >
-            <span className="text-xl md:text-2xl font-bold tracking-wider">
+            {/* <span className="text-xl md:text-2xl font-bold tracking-wider">
               MASTER SITEWORKS
-            </span>
+            </span> */}
           </Link>
 
           {/* Menú de navegación - desktop */}
