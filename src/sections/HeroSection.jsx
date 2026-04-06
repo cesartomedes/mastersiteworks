@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 const HeroSection = () => {
   // Construye la ruta correcta para la imagen, funcione en desarrollo y producción
   const backgroundImage = `url(${import.meta.env.BASE_URL}images/hero.JPG)`;
-  const logoSrc = `${import.meta.env.BASE_URL}logo.PNG`;
+  const logoSrc = `${import.meta.env.BASE_URL}logo1.PNG`;
   
   // Detectar tamaño de pantalla
   const [isMobile, setIsMobile] = useState(false);
