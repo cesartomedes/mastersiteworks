@@ -1,9 +1,32 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const HeroSection = () => {
   // Construye la ruta correcta para la imagen, funcione en desarrollo y producción
   const backgroundImage = `url(${import.meta.env.BASE_URL}images/hero.JPG)`;
-  const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
+  const logoSrc = `${import.meta.env.BASE_URL}logo.PNG`;
+  
+  // Detectar tamaño de pantalla
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
+    };
+    
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Determinar backgroundPosition según dispositivo
+  const getBackgroundPosition = () => {
+    if (isMobile) return "center 40%"; // En mobile, muestra la parte media-superior
+    if (isTablet) return "center 35%"; // En tablet, posición media
+    return "center"; // En desktop, centrado
+  };
 
   return (
     <section
@@ -12,25 +35,27 @@ const HeroSection = () => {
       style={{
         backgroundImage: backgroundImage,
         backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPosition: getBackgroundPosition(),
+        backgroundRepeat: "no-repeat",
       }}
     >
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
       <div className="relative z-10 container mx-auto px-4">
-        {/* LOGO - MÁS ARRIBA EN MOBILE Y TABLET */}
+        {/* LOGO - ENORMEMENTE MÁS GRANDE */}
         <Link to="/">
-          <div className="flex justify-start mb-8 md:mb-16 lg:mb-32 -mt-32 -ml-4 md:-ml-8 lg:-ml-20">
+          <div className="flex justify-start mb-4 md:mb-8 lg:mb-20 -mt-44 -ml-4 md:-ml-8 lg:-ml-20">
             <img
               src={logoSrc}
               alt="Master Siteworks Logo"
-              className="h-24 md:h-32 lg:h-60 w-auto object-cover"
+              className="h-56 md:h-80 lg:h-[32rem] w-auto object-contain"
             />
           </div>
         </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          {/* COLUMNA IZQUIERDA - ALINEADA A LA IZQUIERDA */}
+        {/* TEXTO - MÁS ABAJO EN MÓVIL, IGUAL EN TABLET Y DESKTOP */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start -mt-20 md:-mt-40 lg:-mt-16">
+          {/* COLUMNA IZQUIERDA */}
           <div className="text-white">
             {/* Contenedor flexible para barra + texto */}
             <div className="flex items-stretch mb-6">
