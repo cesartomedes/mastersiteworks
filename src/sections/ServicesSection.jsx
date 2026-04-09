@@ -58,11 +58,10 @@ const ServicesSection = () => {
           </h2>
           <p className="text-gray-700 text-lg leading-relaxed">
             Master Site Works, Inc. is a licensed, bonded, and fully insured
-            general contractor specializing in site development and road
-            construction. Areas of specialty include grading, storm drainage,
-            erosion control, curb & gutter, stone bases, asphalt paving,
-            concrete construction, pavement markings, and incidentals to land
-            development, road construction, and pavement maintenance.
+            contractor specializing in site development. Areas of specialty
+            include grading, storm drainage, erosion control, curb & gutter,
+            stone bases, concrete construction, and incidentals to land
+            development.
           </p>
         </div>
 

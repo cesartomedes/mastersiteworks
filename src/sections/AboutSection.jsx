@@ -1,6 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaCheckCircle, FaTrophy, FaUsers, FaClock, FaHardHat, FaBuilding, FaRoad, FaPaintRoller } from "react-icons/fa";
+import {
+  FaCheckCircle,
+  FaTrophy,
+  FaUsers,
+  FaClock,
+  FaHardHat,
+  FaBuilding,
+  FaWater,
+  FaMountain,
+} from "react-icons/fa";
 
 const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -25,7 +34,7 @@ const AboutSection = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Estadísticas de la empresa - ACTUALIZADAS
+  // Estadísticas de la empresa
   const stats = [
     { icon: <FaTrophy />, value: "15+", label: "Years Experience" },
     { icon: <FaUsers />, value: "200+", label: "Projects Completed" },
@@ -33,12 +42,13 @@ const AboutSection = () => {
     { icon: <FaClock />, value: "24/7", label: "Emergency Support" },
   ];
 
-  // Servicios específicos - NUEVA LISTA
+  // Servicios específicos - ACTUALIZADOS
   const services = [
     { icon: <FaBuilding />, name: "Demolition" },
     { icon: <FaHardHat />, name: "Site Development" },
-    { icon: <FaRoad />, name: "Asphalt Removal" },
-    { icon: <FaPaintRoller />, name: "Pavement Markings" },
+    { icon: <FaWater />, name: "Drainage System" },
+    { icon: <FaMountain />, name: "Slope Stabilization" },
+    { icon: <FaBuilding />, name: "Retaining Walls" },
   ];
 
   // Construir ruta de la imagen
@@ -47,13 +57,13 @@ const AboutSection = () => {
   // Función para ir a Home y hacer scroll a Contact
   const handleContactClick = (e) => {
     e.preventDefault();
-    if (window.location.pathname === '/') {
-      const contactSection = document.getElementById('contact');
+    if (window.location.pathname === "/") {
+      const contactSection = document.getElementById("contact");
       if (contactSection) {
-        contactSection.scrollIntoView({ behavior: 'smooth' });
+        contactSection.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      window.location.href = '/#contact';
+      window.location.href = "/#contact";
     }
   };
 
@@ -61,12 +71,13 @@ const AboutSection = () => {
     <section id="about" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
           {/* COLUMNA IZQUIERDA - Texto */}
           <div
             id="about-section"
             className={`transform transition-all duration-700 ${
-              isVisible ? "translate-x-0 opacity-100" : "-translate-x-10 opacity-0"
+              isVisible
+                ? "translate-x-0 opacity-100"
+                : "-translate-x-10 opacity-0"
             }`}
           >
             {/* Badge */}
@@ -80,20 +91,16 @@ const AboutSection = () => {
               <span className="text-[#314528]">Site Development</span>
             </h2>
 
-            {/* Descripción principal - ACTUALIZADA */}
-            <p className="text-gray-600 text-lg leading-relaxed mb-6">
-              Master Siteworks is a licensed, bonded, and fully insured general contractor 
-              specializing in site development. With over 15 years of experience, we've built 
-              a reputation for excellence, reliability, and superior craftsmanship.
+            {/* Descripción principal */}
+            <p className="text-gray-700 text-lg leading-relaxed mb-6">
+              Master Site Works, Inc. is a licensed, bonded, and fully insured
+              contractor specializing in site development. Areas of specialty
+              include grading, storm drainage, erosion control, curb & gutter,
+              stone bases, concrete construction, and incidentals to land
+              development.
             </p>
 
-            <p className="text-gray-600 text-lg leading-relaxed mb-6">
-              Our expertise spans demolition, site development, asphalt removal, and pavement markings. 
-              We're committed to delivering projects on time, within budget, and to the highest quality 
-              standards.
-            </p>
-
-            {/* Lista de servicios destacados - NUEVA */}
+            {/* Lista de servicios destacados - ACTUALIZADA */}
             <div className="grid grid-cols-2 gap-4 mb-8">
               {services.map((service, index) => (
                 <div
@@ -103,7 +110,9 @@ const AboutSection = () => {
                   <div className="text-2xl text-[#314528] group-hover:scale-110 transition-transform duration-300">
                     {service.icon}
                   </div>
-                  <span className="text-gray-700 font-medium">{service.name}</span>
+                  <span className="text-gray-700 font-medium">
+                    {service.name}
+                  </span>
                 </div>
               ))}
             </div>
@@ -119,7 +128,9 @@ const AboutSection = () => {
                     {stat.icon}
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
+                    <div className="text-2xl font-bold text-gray-900">
+                      {stat.value}
+                    </div>
                     <div className="text-sm text-gray-500">{stat.label}</div>
                   </div>
                 </div>
@@ -151,7 +162,9 @@ const AboutSection = () => {
           {/* COLUMNA DERECHA - Imagen */}
           <div
             className={`transform transition-all duration-700 delay-200 ${
-              isVisible ? "translate-x-0 opacity-100" : "translate-x-10 opacity-0"
+              isVisible
+                ? "translate-x-0 opacity-100"
+                : "translate-x-10 opacity-0"
             }`}
           >
             <div className="relative group">
@@ -173,7 +186,9 @@ const AboutSection = () => {
               {/* Badge flotante */}
               <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-white shadow-xl rounded-full px-6 py-3 flex items-center gap-2">
                 <div className="w-3 h-3 bg-[#314528] rounded-full animate-pulse"></div>
-                <span className="text-gray-700 font-medium">Licensed • Bonded • Insured</span>
+                <span className="text-gray-700 font-medium">
+                  Licensed • Bonded • Insured
+                </span>
               </div>
             </div>
           </div>

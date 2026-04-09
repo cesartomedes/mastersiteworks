@@ -2,32 +2,66 @@ import { useState, useEffect, useRef } from "react";
 import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 
 const VideoSection = () => {
-  const [isPlaying, setIsPlaying] = useState(false); // Cambiado a false inicialmente
-  const [isMuted, setIsMuted] = useState(true); // Silenciado por defecto para autoplay
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [hasAutoPlayed, setHasAutoPlayed] = useState(false); // Para que solo se reproduzca una vez
+  const [hasAutoPlayed, setHasAutoPlayed] = useState(false);
   const videoRef = useRef(null);
   const sectionRef = useRef(null);
 
   // Build correct path for video
   const videoSrc = `${import.meta.env.BASE_URL}videos/video1.mp4`;
 
-  // Detect when video section is in view for autoplay
+  // Forzar autoplay al cargar la página y al hacer scroll
+  useEffect(() => {
+    // Intentar reproducir inmediatamente cuando el video esté cargado
+    if (isLoaded && videoRef.current && !hasAutoPlayed) {
+      const playVideo = () => {
+        videoRef.current.play()
+          .then(() => {
+            setIsPlaying(true);
+            setHasAutoPlayed(true);
+            console.log("Video started playing automatically");
+          })
+          .catch((e) => {
+            console.log("Autoplay prevented, waiting for user interaction:", e);
+            // En mobile, esperar a que el usuario interactúe
+            const handleUserInteraction = () => {
+              if (!hasAutoPlayed && videoRef.current) {
+                videoRef.current.play()
+                  .then(() => {
+                    setIsPlaying(true);
+                    setHasAutoPlayed(true);
+                    console.log("Video started after user interaction");
+                  })
+                  .catch(err => console.log("Still blocked:", err));
+              }
+              document.removeEventListener('click', handleUserInteraction);
+              document.removeEventListener('touchstart', handleUserInteraction);
+            };
+            document.addEventListener('click', handleUserInteraction);
+            document.addEventListener('touchstart', handleUserInteraction);
+          });
+      };
+      playVideo();
+    }
+  }, [isLoaded, hasAutoPlayed]);
+
+  // Detect when video section is in view for autoplay (fallback)
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Cuando la sección del video entra en vista
         if (entry.isIntersecting && !hasAutoPlayed && videoRef.current && isLoaded) {
-          setHasAutoPlayed(true);
           videoRef.current.play()
             .then(() => {
               setIsPlaying(true);
-              console.log("Video started playing automatically");
+              setHasAutoPlayed(true);
+              console.log("Video started by scroll");
             })
-            .catch((e) => console.log("Autoplay prevented:", e));
+            .catch((e) => console.log("Scroll autoplay prevented:", e));
         }
       },
-      { threshold: 0.3 } // 30% visible para activar
+      { threshold: 0.2 } // Reducido a 20% para activar más fácil
     );
 
     if (sectionRef.current) {
@@ -40,30 +74,6 @@ const VideoSection = () => {
       }
     };
   }, [isLoaded, hasAutoPlayed]);
-
-  // Pausar video cuando se sale de vista (opcional)
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting && videoRef.current && isPlaying) {
-          // Opcional: pausar cuando sales de la sección
-          // videoRef.current.pause();
-          // setIsPlaying(false);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, [isPlaying]);
 
   const togglePlay = () => {
     if (videoRef.current) {
@@ -116,6 +126,15 @@ const VideoSection = () => {
           Your browser does not support the video element.
         </video>
 
+        {/* Indicador visual de que el video está listo (opcional) */}
+        {!hasAutoPlayed && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+            <div className="bg-black/50 backdrop-blur-sm rounded-full p-3 animate-pulse">
+              <FaPlay className="text-white text-2xl" />
+            </div>
+          </div>
+        )}
+
         {/* Cinematic vignette effect (darker edges) */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/30 rounded-lg pointer-events-none"></div>
 
@@ -141,7 +160,6 @@ const VideoSection = () => {
         </div>
       </div>
 
-   
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#314528] to-transparent"></div>
     </section>
   );
